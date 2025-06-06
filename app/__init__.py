@@ -14,6 +14,7 @@ def create_app():
 
     app.register_blueprint(bp)
 
+    app.config["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
     app.config["GEMINI_API_KEY"] = os.getenv("GEMINI_API_KEY")
     app.config["CLOUD_STORAGE_NAME"] = os.getenv("CLOUD_STORAGE_NAME")
 

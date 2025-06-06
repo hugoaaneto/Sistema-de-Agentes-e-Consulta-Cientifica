@@ -1,27 +1,15 @@
-from langchain.agents import initialize_agent
-from langchain_google_genai import ChatGoogleGenerativeAI
-from flask import current_app
-
+from app.agents.agent_factory import create_agent
 from app.tools.orchestrator_tools import orchestrator_tools
 
+"""
+Agente de orquestração:
 
-def create_agent():
-    gemini_llm = ChatGoogleGenerativeAI(
-        model="gemini-2.0-flash-lite",
-        temperature=0.3,
-        google_api_key=current_app.config["GEMINI_API_KEY"],
-    )
-
-    agent = initialize_agent(
-        tools=orchestrator_tools,
-        llm=gemini_llm,
-        agent="zero-shot-react-description",
-        verbose=True,
-    )
-    return agent
+Responsável pelo primeiro contato com o usuário, faz uma identificação inicial do objetivo do usuário naquela conversa
+Realiza a função de roteador inteligente, direcionando a um agente especializado de acordo com a solicitação do usuario
+Capaz de trocar modelo de LLM, iniciar a conversa e ativar outros agentes
+"""
 
 
-def orchestrate_flow(message: str):
-    agent = create_agent()
-    response = agent.run(message)
-    return response
+def initialize_orchestrate_agent(message: str):
+    agent = create_agent(orchestrator_tools)
+    return agent.invoke(message)

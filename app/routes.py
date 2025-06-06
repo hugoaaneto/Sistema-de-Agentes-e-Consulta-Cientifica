@@ -1,15 +1,9 @@
 from flask import Blueprint, request, jsonify
 
-from app.agents.orchestrator_agent import orchestrate_flow
+from app.agents.orchestrator_agent import initialize_orchestrate_agent
 from app.services.cloud_storage import upload_file
 
 bp = Blueprint("api", __name__)
-
-
-@bp.route("/agent_message", methods=["POST"])
-def handle_agent_message():
-    data = request.get_json()
-    return jsonify(orchestrate_flow(data.get("message", "")))
 
 
 @bp.route("/chatbot", methods=["POST"])
@@ -24,7 +18,7 @@ def handle_chatbot_message():
         response["file_response"] = upload_file(file)
 
     if message:
-        response["message_response"] = orchestrate_flow(message)
+        response["message_response"] = initialize_orchestrate_agent(message)
 
     if not response:
         return (

@@ -1,15 +1,14 @@
 from langchain.agents import Tool
-
-from app.services.cloud_storage import load_files_from_gcs
-
+from app.services.rag_pipeline import retrieve_relevant_passages
 
 rag_tools = [
     Tool(
-        name="Get relevant information from files",
-        func=load_files_from_gcs,
+        name="RAG Retriever",
+        func=retrieve_relevant_passages,
         description=(
-            "Use this tool to get the relevant information of a file (or more) from the cloud bucket. "
-            "Input should be a list of names of files in the bucket, such as ['document.pdf']."
+            "Use this tool to retrieve relevant passages from documents in cloud storage. "
+            "Input should be a string representing the user's question or query. "
+            "The system will search the document base and return the most relevant information."
         ),
     ),
 ]
