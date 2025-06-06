@@ -34,7 +34,7 @@ No sistema atual não existe Autenticação nem Autorização, isso poderia ser 
 
 ## Desafio de comparação entre LLMs
 
-No sistema foi utilizado um agente para realizar a orquestração e ele é capaz de selecionar a LLM utilizada, com isso e fazendo um propmt adequado é possivel a resposta do sistema comparando as duas abordagens. Segue abaixo o prompt utilizado e a saida recebida. Apos a execução foi verificado o log do sistema e ele havia de fato executado ambos as LLMs.
+No sistema, foi utilizado um agente responsável pela orquestração, sendo capaz de selecionar qual LLM será utilizada. Com isso, ao fornecer um prompt adequado, o sistema é capaz de gerar uma resposta que compara as duas abordagens. Abaixo, apresenta-se o prompt utilizado e a saída correspondente. Após a execução, a análise dos logs confirmou que ambas as LLMs foram, de fato, executadas.
 
 Input:
 
