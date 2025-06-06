@@ -22,7 +22,5 @@ def create_app():
     cloud_key = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
     if cloud_key:
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = cloud_key
-    else:
-        raise RuntimeError("Chave json para GCP não definida")
 
     return app

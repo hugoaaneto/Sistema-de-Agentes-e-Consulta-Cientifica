@@ -32,6 +32,26 @@ A extração de trechos relevantes dos documentos é realizada por meio da abord
 
 No sistema atual não existe Autenticação nem Autorização, isso poderia ser adicionado para permitir que o usuário curador de dados possa fazer suas atividades de manuntenção e o usuário final não, impedindo mau uso do sistema. Por ser uma prova de conceito, não temos diferenciação dos usuários, qualquer usuário pode realizar qualquer ação, o que não é adequado para sistemas em produção.
 
+## Desafio de comparação entre LLMs
+
+No sistema foi utilizado um agente para realizar a orquestração e ele é capaz de selecionar a LLM utilizada, com isso e fazendo um propmt adequado é possivel a resposta do sistema comparando as duas abordagens. Segue abaixo o prompt utilizado e a saida recebida. Apos a execução foi verificado o log do sistema e ele havia de fato executado ambos as LLMs.
+
+Input:
+
+```json
+{ "message": "Faça duas ações, uma usando a openai e outra usando o gemini para pegar a lista de arquivos disponiveis na base e responda no formato: 'resposta da apenai: (.....) \n resposta do gemini: (.....)' }
+```
+
+Resposta:
+
+```json
+{
+	"message_response": {
+		"input": "Faça duas ações, uma usando a openai e outra usando o gemini para pegar a lista de arquivos disponiveis na base e responda no formato: \"resposta da apenai: (.....) \\n resposta do gemini: (.....)",
+		"output": "resposta da openai: The documents in the cloud bucket are: \\n1. On the influence of the swimming operators in the Fish School Search algorithm.pdf\\n2. PALLAS Penalized mAximum LikeLihood and pArticle Swarms for Inference of Gene Regulatory Networks from Time Series Data.pdf \\n resposta do gemini: ['On the influence of the swimming operators in the Fish School Search algorithm.pdf', 'PALLAS Penalized mAximum LikeLihood and pArticle Swarms for Inference of Gene Regulatory Networks from Time Series Data.pdf']"
+	}
+}
+```
 
 ## Formato das Requisições
 
@@ -50,10 +70,10 @@ Abaixo, exemplos de requisições possíveis ao sistema via API:
 { "message": "olá" }
 { "message": "quais arquivos tem disponíveis na base de dados?" }
 { "message": "tem algum artigo com 'fish school search.pdf' ou algo parecido no nome?" }
-{ "message": "deleta o arquivo 'anomaly detection.pdf'" }
+{ "message": "Usando a openai delete o arquivo anomaly detection.pdf" }
 { "message": "No contexto de IA e científico o que é o fish school search (FSS)?" }
 { "message": "no artigo científico do fish school search o que o operador coletivo volitivo faz?" }
-{ "message": "Como implemento um quicksort?" }
+{ "message": "Usando a openai me explique como implemento um quicksort?" }
 { "message": "do que fala o On the influence of the swimming operators in the Fish School Search algorithm.pdf?" }
 ```
 

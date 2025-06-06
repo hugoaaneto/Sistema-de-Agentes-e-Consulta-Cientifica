@@ -1,0 +1,11 @@
+services:
+  api_desafio:
+    container_name: api_desafio
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "5000:8080"
+    restart: always
